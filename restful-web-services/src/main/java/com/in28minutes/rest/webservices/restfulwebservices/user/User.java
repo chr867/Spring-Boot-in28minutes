@@ -11,6 +11,7 @@ import java.time.LocalDate;
 
 @Entity(name = "user_details")
 public class User {
+    protected User(){}
 
     @Id
     @GeneratedValue
