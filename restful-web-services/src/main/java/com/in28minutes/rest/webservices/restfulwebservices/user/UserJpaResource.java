@@ -36,7 +36,7 @@ public class UserJpaResource {
     @GetMapping("/jpa/users/{id}")
     public EntityModel<User> retrieveUser(@PathVariable int id){
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id: "+ id));
+                .orElseThrow(() -> new UserNotFoundException(id));
 
         EntityModel<User> entityModel = EntityModel.of(user);
         WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).retrieveAllUsers());
@@ -64,7 +64,7 @@ public class UserJpaResource {
     @GetMapping("/jpa/users/{id}/posts")
     public List<Post> retrievePostsForUser(@PathVariable int id){
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id: "+ id));
+                .orElseThrow(() -> new UserNotFoundException(id));
 
         return user.getPosts();
     }
@@ -72,7 +72,7 @@ public class UserJpaResource {
     @PostMapping("/jpa/users/{id}/posts")
     public ResponseEntity<Object> createPostForUser(@PathVariable int id, @Valid @RequestBody Post post){
         User user = userRepository.findById(id)
-        .orElseThrow(() -> new UserNotFoundException("User not found with id: "+ id));
+        .orElseThrow(() -> new UserNotFoundException(id));
 
         post.setUser(user);
         Post savedPost = postRepository.save(post);

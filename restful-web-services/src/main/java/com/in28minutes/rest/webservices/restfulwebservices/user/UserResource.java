@@ -31,7 +31,7 @@ public class UserResource {
     public EntityModel<User> retrieveUser(@PathVariable int id){
         User user = userDaoService.findOne(id);
         if(user == null){
-            throw new UserNotFoundException("id:"+id);
+            throw new UserNotFoundException(id);
         }
 
         EntityModel<User> entityModel = EntityModel.of(user);
